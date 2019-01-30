@@ -1,35 +1,49 @@
 /* eslint-disable */
 class HttpRequest {
   // get request options({ baseUrl, headers })
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl || '';
-    // this.headers = headers;
+  constructor({ baseUrl = '', headers }) {
+    this.baseUrl = baseUrl;
+    this.headers = headers;
   }
 
-  get(URL, config) {
-    const { responseType = 'json', onDownloadProgress } = config;
-    // xhr.setRequestHeader('Content-type', `${Content - type}`);
+  get(URL = '', config = {}) {
+    const {_headers, _params, responseType = 'json', onDownloadProgress } = config;
+    const headers = {..._headers, ...this.headers};
+    const params = !_params ? '' : _params;
     const xhr = new XMLHttpRequest();
+
+    for (const key in headers) {
+      xhr.setRequestHeader(key, headers[key]);
+    }
     xhr.responseType = responseType;
 
     if (onDownloadProgress) { onDownloadProgress(xhr); }
 
-    xhr.open('GET', this.baseUrl + URL, true);
+    xhr.open('GET', this.baseUrl + URL + params, true);
     xhr.send();
 
     return getResponse(xhr);
   }
 
 
-  post(URL, config) {
-    const { data, responseType, onUploadProgress } = config;
+  post(URL, config = {}) {
+    const {transformResponse, _headers, data, responseType, onUploadProgress } = config;
+    const headers = {..._headers, ...this.headers};
+    const _data = data;
     // xhr.setRequestHeader('Content-type', `${Content - type}`);
     const xhr = new XMLHttpRequest();
+
+    for (const key in headers) {
+      xhr.setRequestHeader(key, headers[key]);
+    }
     xhr.responseType = responseType || 'json';
+    if(transformResponse){
+      _data = transformResponse.reduce((acc, f) => f(acc), data);
+    }
 
     if (onUploadProgress) { onUploadProgress(xhr); }
     xhr.open('POST', this.baseUrl + URL, true);
-    xhr.send(data);
+    xhr.send(_data);
     return getResponse(xhr);
   }
 }
