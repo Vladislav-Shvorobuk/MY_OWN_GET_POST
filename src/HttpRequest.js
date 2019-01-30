@@ -40,12 +40,8 @@ function getResponse(xhr) {
       if (xhr.readyState !== 4) {
         return;
       }
-
       if (xhr.status === 200) {
         resolve(xhr);
-      } else if (xhr.status === 404) {
-        setMessage('.DownloadMes', 'File does not exist or file name is incorrect.');
-        reject(`ERROR ${xhr.status} : ${xhr.statusText}\n File does not exist or file name is incorrect.`);
       } else {
         reject(`ERROR ${xhr.status} : ${xhr.statusText}`);
       }

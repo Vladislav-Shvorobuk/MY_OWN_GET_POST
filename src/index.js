@@ -39,6 +39,8 @@ document.getElementById('downloadForm').onsubmit = function (e) {
       } else {
         downloadFile(data.response, fileName);
       }
+    }).catch(() => {
+      setMessage('.DownloadMes', 'File does not exist or file name is incorrect.');
     });
 };
 
