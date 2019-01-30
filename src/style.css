@@ -81,8 +81,9 @@ body {
   box-sizing: inherit;
   display: inline-block;
   width: 417px;
-  height: 16px;
-  margin-bottom: 100px;
+  height: 35px;
+  border-radius: 5px;
+  margin-bottom: 30px;
 
 }
 
