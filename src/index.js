@@ -10,7 +10,7 @@ const close = document.querySelector('.fas');
 document.getElementById('uploadForm').onsubmit = function (e) {
   e.preventDefault();
   const form = new FormData();
-  const http = new HttpRequest();
+  const http = new HttpRequest({ baseUrl: 'http://localhost:8000'});
   const file = e.target.sampleFile.files[0];
 
   if (!file) {
@@ -18,7 +18,7 @@ document.getElementById('uploadForm').onsubmit = function (e) {
     return;
   }
   form.append('sampleFile', file);
-  http.post('http://localhost:8000/upload', { data: form, onUploadProgress });
+  http.post('/upload', { data: form, onUploadProgress });
 };
 
 
@@ -31,8 +31,8 @@ document.getElementById('downloadForm').onsubmit = function (e) {
     return;
   }
   
-  const http = new HttpRequest('/files/');
-  http.get(`${fileName}`, { responseType: 'blob', onDownloadProgress })
+  const http = new HttpRequest({ baseUrl: 'http://localhost:8000'});
+  http.get(`/files/${fileName}`, { responseType: 'blob', onDownloadProgress })
     .then(data => {
       if (IMAGE_MIME_TIPES.includes(data.response.type)) {
         viewImage(data);
@@ -56,8 +56,8 @@ buttonShow.onclick = function showList() {
   buttonShow.style.display = 'none';
 
   list.style.display = 'block';
-  const http = new HttpRequest();
-  http.get(`/list`, {})
+  const http = new HttpRequest({ baseUrl: 'http://localhost:8000'});
+  http.get('/list')
     .then(data => {
       data.response.forEach((file, index) => {
               const p = document.createElement('p');
