@@ -1,9 +1,10 @@
 
 function onUploadProgress(xhr) {
   const uploadProgress = document.getElementById('upload-progress');
-  const { title } = document;
+  const progressValue = document.querySelector('.uploadProgressValue');
 
   xhr.upload.onloadstart = function(e) {
+    progressValue.classList.add('visible');
     uploadProgress.classList.add('visible');
     uploadProgress.value = 0;
     uploadProgress.max = e.total;
@@ -11,17 +12,17 @@ function onUploadProgress(xhr) {
 
   xhr.upload.onprogress = function(e) {
     const persentage = `${parseInt(((e.loaded / e.total) * 100), 10)}%`;
-    document.title = `${title} ${persentage}`;
+    progressValue.innerHTML = `${persentage}`;
     uploadProgress.value = e.loaded;
     uploadProgress.max = e.total;
   };
 
   xhr.upload.onloadend = function(e) {
-    uploadProgress.classList.remove('visible');
-    document.title = `${title} 100%`;
+    progressValue.innerHTML = '100 %';
     setTimeout(() => {
-      document.title = title;
-    }, 1000);
+      progressValue.classList.remove('visible');
+      uploadProgress.classList.remove('visible');
+    }, 1500);
   };
 }
 
@@ -47,7 +48,7 @@ function onDownloadProgress(xhr) {
     document.title = `${title} 100%`;
     setTimeout(() => {
       document.title = title;
-    }, 1000);
+    }, 1500);
   };
 }
 

@@ -56,7 +56,7 @@ body {
 }
 
 #download-progress::-webkit-progress-value {
-  background-color: #78dbece5;
+  background-color: #69EA49;
 }
 
 #uploadForm {
@@ -78,22 +78,28 @@ body {
 }
 
 #upload-progress {
-  box-sizing: inherit;
   display: inline-block;
   width: 417px;
   height: 35px;
+  border: 1px solid #4FD666;
   border-radius: 5px;
   margin-bottom: 30px;
+}
 
+.uploadProgressValue {
+  position: absolute;
+  top: 197px;
+  font-size: 21px;
+  color: rgba(61, 89, 103, 0.81);
 }
 
 #upload-progress::-webkit-progress-bar {
   border-radius: 5px;
-  background-color: transparent;
+  background-color: #dcf0ab3d;
 }
 
 #upload-progress::-webkit-progress-value {
-  background-color: #78dbece5; 
+  background-color: #69EA49; 
 } 
 
 #downloadForm {
@@ -122,11 +128,12 @@ body {
   font: 16px/40px Tahoma;
 }
 
-#upload-progress, #download-progress {
+#upload-progress, #download-progress, .uploadProgressValue {
   opacity: 0; 
+  transition: all 0.18s ease-in-out;
 }
 
-#upload-progress.visible,  #download-progress.visible {
+#upload-progress.visible,  #download-progress.visible, .uploadProgressValue.visible{
   opacity: 1;
 }
 
@@ -211,7 +218,6 @@ z-index: -1;
   border: 1px solid #4FD666;
   color: #0000006b;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 input:-webkit-autofill,
