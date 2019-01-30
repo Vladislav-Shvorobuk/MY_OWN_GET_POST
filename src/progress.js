@@ -57,12 +57,12 @@ function viewImage(xhr) {
   img.src = imageUrl;
 }
 
-function downloadFile(data) {
+function downloadFile(data, fileName) {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(data);
   link.style.display = 'none';
   document.body.appendChild(link);
-  link.download = data.type;
+  link.download = fileName;
   link.click();
   document.body.removeChild(link);
 }

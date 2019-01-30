@@ -37,7 +37,7 @@ document.getElementById('downloadForm').onsubmit = function (e) {
       if (IMAGE_MIME_TIPES.includes(data.response.type)) {
         viewImage(data);
       } else {
-        downloadFile(data.response);
+        downloadFile(data.response, fileName);
       }
     });
 };
