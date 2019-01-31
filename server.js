@@ -7,7 +7,7 @@ app.use('/favicon', express.static(__dirname + '/resources/images/favicon.png'))
 app.use('/back_2', express.static(__dirname + '/resources/images/back_2.jpg'));
 app.use('/style', express.static(__dirname + '/src/style.css'));
 app.use('/form', express.static(__dirname + '/index.html'));
-app.use('/index.js', express.static(__dirname + '/src/index.js'));
+app.use('/app.js', express.static(__dirname + '/src/app.js'));
 app.use('/progress.js', express.static(__dirname + '/src/progress.js'));
 app.use('/HttpRequest.js', express.static(__dirname + '/src/HttpRequest.js'));
 app.use('/files', express.static(__dirname + '/uploads'));

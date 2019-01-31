@@ -26,6 +26,7 @@ body {
   display: flex;
   justify-content: center;
 }
+
 .message {
   position: absolute;
   font: 16px/20px Tahoma;
@@ -42,21 +43,23 @@ body {
 .DownloadMes {
   top: 95px;
 }
-
-#download-progress {
+progress{
+  transition: all 0.48s ease-in-out;
+}
+.download-progress {
   position: fixed;
   margin-bottom: 30px;
-  border-radius: 3px;
+  border-radius: 4px;
   width: 100%;
   height: 5px;
 }
 
-#download-progress::-webkit-progress-bar {
+.download-progress::-webkit-progress-bar {
   background-color: transparent;
 }
 
-#download-progress::-webkit-progress-value {
-  background-color: #69EA49;
+.download-progress::-webkit-progress-value {
+  background: linear-gradient(to right, #3EC97A, red);
 }
 
 #uploadForm {
@@ -73,11 +76,26 @@ body {
   font-size: 21px;
 }
 
+.nameOfUploadFile {
+  width: 150px;
+  height: 40px;
+  border-radius: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 0;
+  text-align: center;
+  background-color: #dcf0ab;
+  font: 16px/40px Tahoma;
+  border: 1px solid #4FD666;
+  color: #0000006b;
+  overflow: hidden;
+}
+
 #uploadForm input[type=submit]{
   border: 1px solid #4FD666;
 }
 
-#upload-progress {
+.upload-progress {
   display: inline-block;
   width: 417px;
   height: 35px;
@@ -93,12 +111,12 @@ body {
   color: rgba(61, 89, 103, 0.81);
 }
 
-#upload-progress::-webkit-progress-bar {
+.upload-progress::-webkit-progress-bar {
   border-radius: 5px;
   background-color: #dcf0ab3d;
 }
 
-#upload-progress::-webkit-progress-value {
+.upload-progress::-webkit-progress-value {
   background-color: #69EA49; 
 } 
 
@@ -116,10 +134,11 @@ body {
   border-radius: 4px;
   text-align: center;
   background-color: #dcf0ab;
-  font: 16px/40px Tahoma;
+  font: 16px Tahoma;
   border: 1px solid #4FD666;
   color: #0000006b;
   overflow: hidden;
+  outline: none;
   text-overflow: ellipsis;
 }
 
@@ -128,12 +147,11 @@ body {
   font: 16px/40px Tahoma;
 }
 
-#upload-progress, #download-progress, .uploadProgressValue {
+.upload-progress, .download-progress, .uploadProgressValue {
   opacity: 0; 
-  transition: all 0.18s ease-in-out;
 }
 
-#upload-progress.visible,  #download-progress.visible, .uploadProgressValue.visible{
+.upload-progress.visible,  .download-progress.visible, .uploadProgressValue.visible{
   opacity: 1;
 }
 
@@ -145,7 +163,7 @@ body {
   background-size: 100% 100%;
 }
 
-.SubmitOrButton {
+.submitOrButton {
   width: 125px;
   height: 40px;
   border-radius: 4px;
@@ -157,13 +175,22 @@ body {
   border: 1px solid #4FD666;
   background: linear-gradient(to top right, #3EC97A, #69EA49 20%, rgba(61, 89, 103, 0.81) 80%, rgba(255, 255, 255, 0)) top right/500% 500%;
   color: white;
+  transition: all 0.48s ease-in-out;
+  outline: none;
+}
+
+.submitOrButton:hover {
+  background-position: bottom left;
 }
 
 .buttonShow {
+  border-radius: 50%;
   width: 180px;
-  height: 80px;
+  height: 180px;
 }
-.list {
+
+.listOfFiles {
+  border: 1px solid #4FD666;
   position: relative;
   font: 16px/20px Tahoma;
   color: white;
@@ -177,7 +204,7 @@ body {
   overflow-y: auto;
 }
 
-.fas {
+.fa-times {
   font-size: 40px;
   color: rgba(61, 89, 103, 0.31);
 }
@@ -186,38 +213,18 @@ body {
   position: absolute;
   top: 10px;
   right: 30px;
+  transition: all 0.28s ease-in-out;
 }
 
-.SubmitOrButton:hover {
-  color: white;
-  background-position: bottom left;
-}
-
-.fas:hover {
+.fa-times:hover {
   color: #3EC97A;
   background-position: bottom left;
 }
 
-  
-#myfile {
-opacity: 0;
-position: absolute;
-z-index: -1;
-}
-
-.fileName {
-  width: 150px;
-  height: 40px;
-  border-radius: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 0;
-  text-align: center;
-  background-color: #dcf0ab;
-  font: 16px/40px Tahoma;
-  border: 1px solid #4FD666;
-  color: #0000006b;
-  overflow: hidden;
+#chooseFile {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 input:-webkit-autofill,

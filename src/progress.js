@@ -1,6 +1,6 @@
 
 function onUploadProgress(xhr) {
-  const uploadProgress = document.getElementById('upload-progress');
+  const uploadProgress = document.querySelector('.upload-progress');
   const progressValue = document.querySelector('.uploadProgressValue');
 
   xhr.upload.onloadstart = function(e) {
@@ -27,7 +27,7 @@ function onUploadProgress(xhr) {
 }
 
 function onDownloadProgress(xhr) {
-  const downLoadProgress = document.getElementById('download-progress');
+  const downLoadProgress = document.querySelector('.download-progress');
   const { title } = document;
 
   xhr.onloadstart = function(e) {

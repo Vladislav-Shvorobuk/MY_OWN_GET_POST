@@ -30,7 +30,6 @@ class HttpRequest {
     const {transformResponse, _headers, data, responseType, onUploadProgress } = config;
     const headers = {..._headers, ...this.headers};
     const _data = data;
-    // xhr.setRequestHeader('Content-type', `${Content - type}`);
     const xhr = new XMLHttpRequest();
 
     for (const key in headers) {
