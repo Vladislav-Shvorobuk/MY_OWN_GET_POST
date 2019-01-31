@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 0 50px 0; 
+  padding: 70px 0 50px 0; 
 }
 .right {
   height: 100%;
@@ -28,27 +28,21 @@ body {
 }
 
 .message {
-  position: absolute;
-  font: 16px/20px Tahoma;
-  color: #324003;
-  background: linear-gradient(to top right, #3EC97A, #69EA49 20%, rgba(61, 89, 103, 0.81) 80%, rgba(255, 255, 255, 0)) top right/500% 500%;
+  opacity: 0;
   width: 414px;
+  height: 80px;
+  font: 16px/20px Tahoma;
   border-radius: 4px;
   text-align: center;
+  line-height: 80px;
+  margin-bottom: 10px;
 }
 
-.UploadMes {
-  top: 13px;
-}
-.DownloadMes {
-  top: 95px;
-}
 progress {
   transition: all 0.48s ease-in-out;
 }
 .download-progress {
   position: fixed;
-  margin-bottom: 30px;
   border-radius: 4px;
   width: 100%;
   height: 5px;
@@ -65,7 +59,7 @@ progress {
 #uploadForm {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 #uploadForm input[type=file] {
@@ -108,7 +102,7 @@ progress {
 
 .uploadProgressValue {
   position: absolute;
-  top: 197px;
+  top: 278px;
   font-size: 21px;
   color: rgba(61, 89, 103, 0.81);
 }

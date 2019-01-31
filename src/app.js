@@ -10,7 +10,7 @@ uploadForm.addEventListener('submit', function (e) {
   const [file] = e.target.sampleFile.files;
 
   if (!file) {
-    setMessage('.UploadMes', 'Choose a file.');
+    setMessage('CHOOSE_A_FILE');
     return;
   }
 
@@ -18,7 +18,12 @@ uploadForm.addEventListener('submit', function (e) {
   form.append('sampleFile', file);
   
   const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-  http.post('/upload', { data: form, onUploadProgress });
+  http.post('/upload', { data: form, onUploadProgress }).then(() => {
+    setMessage('SUCCES_DOWNLOAD_FILE');
+  }).catch(error => {
+    setMessage('ERROR', error);
+  });
+
 });
 
 
@@ -27,7 +32,7 @@ downloadForm.addEventListener('submit', function (e) {
   const nameOfDownloadFile = document.querySelector('.nameOfDownloadFile').value;
 
   if (!nameOfDownloadFile) {
-    setMessage('.DownloadMes', 'Choose a file.');
+    setMessage('CHOOSE_A_FILE');
     return;
   }
 
@@ -37,11 +42,13 @@ downloadForm.addEventListener('submit', function (e) {
     .then(data => {
       if (IMAGE_MIME_TIPES.includes(data.response.type)) {
         viewImage(data);
+        setMessage('SUCCES_VIEW_IMAGE');
       } else {
         downloadFile(data.response, nameOfDownloadFile);
+        setMessage('SUCCES_DOWNLOAD_FILE');
       }
     }).catch(() => {
-      setMessage('.DownloadMes', 'File does not exist or file name is incorrect.');
+      setMessage('NOT_EXIST');
     });
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const buttonShow = document.querySelector('.buttonShow');
 const listOfFiles = document.querySelector('.listOfFiles');
 const buttonClose = document.querySelector('.fa-times');

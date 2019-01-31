@@ -22,7 +22,7 @@ function onUploadProgress(xhr) {
     setTimeout(() => {
       progressValue.classList.remove('visible');
       uploadProgress.classList.remove('visible');
-    }, 1500);
+    }, 1300);
   };
 }
 
@@ -48,32 +48,13 @@ function onDownloadProgress(xhr) {
     document.title = `${title} 100%`;
     setTimeout(() => {
       document.title = title;
-    }, 1500);
+    }, 1300);
   };
-}
-
-function viewImage(xhr) {
-  const imageUrl = URL.createObjectURL(xhr.response);
-  const img = document.querySelector('.image');
-  img.src = imageUrl;
 }
 
 function downloadFile(data, fileName) {
   const link = document.createElement('a');
   link.href = URL.createObjectURL(data);
-  link.style.display = 'none';
-  document.body.appendChild(link);
   link.download = fileName;
   link.click();
-  document.body.removeChild(link);
-}
-
-function setMessage(selector, messageText) {
-  const message = document.querySelector(selector);
-  message.innerHTML = messageText;
-  message.style.border = '1px solid #4FD666';
-  setTimeout(() => {
-    message.innerHTML = '';
-    message.style.border = 'none';
-  }, 2000);
 }
