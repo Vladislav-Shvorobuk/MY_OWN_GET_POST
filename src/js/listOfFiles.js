@@ -10,8 +10,8 @@ buttonShow.addEventListener('click', function showList() {
 
   const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
   http.get('/list')
-    .then(data => {
-      data.response.forEach((file, index) => {
+    .then(response => {
+      response.forEach((file, index) => {
         const p = document.createElement('p');
         listOfFiles.appendChild(p);
         p.innerHTML = `${index + 1})  ${file}`;

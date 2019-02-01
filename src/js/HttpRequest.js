@@ -1,68 +1,71 @@
-/* eslint-disable */
+// /* eslint-disable */
 class HttpRequest {
-  // get request options({ baseUrl, headers })
-  constructor({ baseUrl = '', headers }) {
+  constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
   }
 
-  get(URL = '', config = {}) {
-    const {_headers, _params, responseType = 'json', onDownloadProgress } = config;
-    const headers = {..._headers, ...this.headers};
-    const params = !_params ? '' : _params;
-    const xhr = new XMLHttpRequest();
+  get(url, config = {}) {
+    return this.__request('GET', url, config);
+  }
 
-    for (const key in headers) {
-      xhr.setRequestHeader(key, headers[key]);
-    }
+  post(url, config = {}) {
+    return this.__request('POST', url, config);
+  }
+
+  __request(method, url, config) {
+    const {
+      headers,
+      params,
+      data = null,
+      responseType = 'json',
+      onDownloadProgress = null,
+      onUploadProgress = null,
+      transformResponse
+    } = config;
+
+    const URL = HttpRequest.getURL(url, this.baseUrl, params);
+    const xhrHeaders = { ...this.headers, ...headers };
+
+    const xhr = new XMLHttpRequest();
     xhr.responseType = responseType;
 
-    if (onDownloadProgress) { onDownloadProgress(xhr); }
-
-    xhr.open('GET', this.baseUrl + URL + params, true);
-    xhr.send();
-
-    return getResponse(xhr);
-  }
-
-
-  post(URL, config = {}) {
-    const {transformResponse, _headers, data, responseType, onUploadProgress } = config;
-    const headers = {..._headers, ...this.headers};
-    const _data = data;
-    const xhr = new XMLHttpRequest();
-
-    for (const key in headers) {
-      xhr.setRequestHeader(key, headers[key]);
-    }
-    xhr.responseType = responseType || 'json';
-    if(transformResponse){
-      _data = transformResponse.reduce((acc, f) => f(acc), data);
+    if (onDownloadProgress) {
+      onDownloadProgress(xhr);
     }
 
-    if (onUploadProgress) { onUploadProgress(xhr); }
-    xhr.open('POST', this.baseUrl + URL, true);
-    xhr.send(_data);
-    return getResponse(xhr);
+    if (onUploadProgress) {
+      onUploadProgress(xhr);
+    }
+
+    Object.entries(xhrHeaders).forEach(([key, value]) => xhr.setRequestHeader(key, value));
+    xhr.open(method, URL);
+
+    return new Promise((res, rej) => {
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          return res(transformResponse ?
+            transformResponse.reduce((acc, f) => f(acc), xhr.response) :
+            xhr.response);
+        }
+
+        rej(new Error(`${xhr.status} : ${xhr.statusText}`));
+      };
+      xhr.send(data);
+    });
+  }
+
+  static getURL(urlString, baseURLstring, objParams) {
+    const url = new URL(urlString, baseURLstring);
+
+    if (objParams instanceof URLSearchParams) {
+      Object.entries(objParams).forEach(([key, value]) => url.searchParams.set(key, value));
+    } else if (objParams) {
+      Object.entries(objParams).forEach(param => url.searchParams.set(param, objParams[param]));
+    }
+    return url;
   }
 }
-
-function getResponse(xhr) {
-  return new Promise((resolve, reject) => {
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== 4) {
-        return;
-      }
-      if (xhr.status === 200) {
-        resolve(xhr);
-      } else {
-        reject(`ERROR ${xhr.status} : ${xhr.statusText}`);
-      }
-    };
-  });
-}
-
-
 
 /*
 const reuest = new HttpRequest({

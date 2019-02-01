@@ -6,8 +6,8 @@ chooseFile.addEventListener('change', function setFileName() {
   nameOfUploadFile.innerHTML = chooseFile.value.replace(/.*\\/, '');
 });
 
-function viewImage(xhr) {
-  document.querySelector('.image').src = URL.createObjectURL(xhr.response);
+function viewImage(response) {
+  document.querySelector('.image').src = URL.createObjectURL(response);
 }
 
 function setMessage(type, text) {

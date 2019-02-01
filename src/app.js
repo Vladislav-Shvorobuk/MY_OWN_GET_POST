@@ -5,7 +5,7 @@ const uploadForm = document.getElementById('uploadForm');
 const downloadForm = document.getElementById('downloadForm');
 
 
-uploadForm.addEventListener('submit', function (e) {
+uploadForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const [file] = e.target.sampleFile.files;
 
@@ -16,18 +16,18 @@ uploadForm.addEventListener('submit', function (e) {
 
   const form = new FormData();
   form.append('sampleFile', file);
-  
-  const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-  http.post('/upload', { data: form, onUploadProgress }).then(() => {
-    setMessage('SUCCES_DOWNLOAD_FILE');
-  }).catch(error => {
-    setMessage('ERROR', error);
-  });
 
+  const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+  response.post('/upload', { data: form, onUploadProgress }).then(() => {
+    setMessage('SUCCES_DOWNLOAD_FILE');
+  })
+    .catch(error => {
+      setMessage('ERROR', error);
+    });
 });
 
 
-downloadForm.addEventListener('submit', function (e) {
+downloadForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const nameOfDownloadFile = document.querySelector('.nameOfDownloadFile').value;
 
@@ -36,18 +36,19 @@ downloadForm.addEventListener('submit', function (e) {
     return;
   }
 
-  const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-  
-  http.get(`/files/${nameOfDownloadFile}`, { responseType: 'blob', onDownloadProgress })
-    .then(data => {
-      if (IMAGE_MIME_TIPES.includes(data.response.type)) {
-        viewImage(data);
+  const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+
+  response.get(`/files/${nameOfDownloadFile}`, { responseType: 'blob', onDownloadProgress })
+    .then(response => {
+      if (IMAGE_MIME_TIPES.includes(response.type)) {
+        viewImage(response);
         setMessage('SUCCES_VIEW_IMAGE');
       } else {
-        downloadFile(data.response, nameOfDownloadFile);
+        downloadFile(response, nameOfDownloadFile);
         setMessage('SUCCES_DOWNLOAD_FILE');
       }
-    }).catch(() => {
+    })
+    .catch(() => {
       setMessage('NOT_EXIST');
     });
 });
