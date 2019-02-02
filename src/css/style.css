@@ -7,10 +7,12 @@ body {
   background-size: 100% 100%;
   margin: 0;
 }
+
 .container {
   display: flex;
   width: 100%;
 }
+
 .left {
   position: relative;
   width: 40%;
@@ -19,6 +21,7 @@ body {
   align-items: center;
   padding: 70px 0 50px 0; 
 }
+
 .right {
   height: 100%;
   width: 60%;
@@ -41,20 +44,6 @@ body {
 
 progress {
   transition: all 0.48s ease-in-out;
-}
-.download-progress {
-  position: fixed;
-  border-radius: 4px;
-  width: 100%;
-  height: 5px;
-}
-
-.download-progress::-webkit-progress-bar {
-  background-color: transparent;
-}
-
-.download-progress::-webkit-progress-value {
-  background: linear-gradient(to right, #3EC97A, red);
 }
 
 #uploadForm {
@@ -114,7 +103,7 @@ progress {
 }
 
 .upload-progress::-webkit-progress-value {
-  background-color: #69EA49; 
+  background: linear-gradient(to right, #3EC97A, rgba(255, 0, 0, 0.621));
 } 
 
 #downloadForm {
@@ -137,13 +126,26 @@ progress {
   text-overflow: ellipsis;
   overflow: hidden;
   outline: none;
-  
-
 }
 
 #downloadForm input[type=submit] {
   text-align: center;
   font: 16px/40px Tahoma;
+}
+
+.download-progress {
+  position: fixed;
+  border-radius: 4px;
+  width: 100%;
+  height: 5px;
+}
+
+.download-progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+.download-progress::-webkit-progress-value {
+  background: linear-gradient(to right, #3EC97A, red);
 }
 
 .upload-progress, .download-progress, .uploadProgressValue {

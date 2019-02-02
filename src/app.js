@@ -4,8 +4,8 @@ const IMAGE_MIME_TIPES = ['image/gif', 'image/png', 'image/jpeg',
 const uploadForm = document.getElementById('uploadForm');
 const downloadForm = document.getElementById('downloadForm');
 
-
-uploadForm.addEventListener('submit', function(e) {
+//  UPLOAD FILE
+uploadForm.addEventListener('submit', function (e) {
   e.preventDefault();
   const [file] = e.target.sampleFile.files;
 
@@ -16,19 +16,20 @@ uploadForm.addEventListener('submit', function(e) {
 
   const form = new FormData();
   form.append('sampleFile', file);
-
   const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-  response.post('/upload', { data: form, onUploadProgress }).then(() => {
-    setMessage('SUCCES_DOWNLOAD_FILE');
-  })
+
+  response.post('/upload', { data: form, onUploadProgress })
+    .then(() => {
+      setMessage('SUCCES_DOWNLOAD_FILE');
+    })
     .catch(error => {
       setMessage('ERROR', error);
     });
 });
 
-
-downloadForm.addEventListener('submit', function(e) {
-  e.preventDefault();
+//  DOWNLOAD FILE
+downloadForm.addEventListener('submit', event => {
+  event.preventDefault();
   const nameOfDownloadFile = document.querySelector('.nameOfDownloadFile').value;
 
   if (!nameOfDownloadFile) {
@@ -48,7 +49,8 @@ downloadForm.addEventListener('submit', function(e) {
         setMessage('SUCCES_DOWNLOAD_FILE');
       }
     })
-    .catch(() => {
+    .catch(error => {
+      console.log(error);
       setMessage('NOT_EXIST');
     });
 });

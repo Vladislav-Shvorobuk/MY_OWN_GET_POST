@@ -1,6 +1,7 @@
 // /* eslint-disable*/
 const chooseFile = document.getElementById('chooseFile');
 const nameOfUploadFile = document.querySelector('.nameOfUploadFile');
+const message = document.querySelector('.message');
 
 chooseFile.addEventListener('change', function setFileName() {
   nameOfUploadFile.innerHTML = chooseFile.value.replace(/.*\\/, '');
@@ -11,7 +12,6 @@ function viewImage(response) {
 }
 
 function setMessage(type, text) {
-  const message = document.querySelector('.message');
   message.style.display = 'block';
   message.style.opacity = '1';
 
@@ -60,5 +60,12 @@ function setMessage(type, text) {
     message.innerHTML = '';
     message.style.opacity = '0';
   }, 1300);
+}
+
+function downloadFile(data, fileName) {
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(data);
+  link.download = fileName;
+  link.click();
 }
 

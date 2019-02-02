@@ -1,60 +1,56 @@
+const uploadProgressBar = document.querySelector('.upload-progress');
+const downLoadProgressBar = document.querySelector('.download-progress');
+const uploadProgressValue = document.querySelector('.uploadProgressValue');
+const titleValue = document.querySelector('title');
 
-function onUploadProgress(xhr) {
-  const uploadProgress = document.querySelector('.upload-progress');
-  const progressValue = document.querySelector('.uploadProgressValue');
+function onProgress(progArgs) {
+  const { event,
+    progressBar,
+    progressValue,
+    onProgressStart,
+    onProgressEnd,
+    text = '',
+    finalText = '' } = progArgs;
 
-  xhr.upload.onloadstart = function(e) {
-    progressValue.classList.add('visible');
-    uploadProgress.classList.add('visible');
-    uploadProgress.value = 0;
-    uploadProgress.max = e.total;
-  };
+  onProgressStart([progressValue, progressBar]);
 
-  xhr.upload.onprogress = function(e) {
-    const persentage = `${parseInt(((e.loaded / e.total) * 100), 10)}%`;
-    progressValue.innerHTML = `${persentage}`;
-    uploadProgress.value = e.loaded;
-    uploadProgress.max = e.total;
-  };
+  const persentage = `${parseInt(((event.loaded / event.total) * 100), 10)}%`;
+  progressBar.value = event.loaded;
+  progressBar.max = event.total;
+  progressValue.innerHTML = `${text} ${persentage}`;
 
-  xhr.upload.onloadend = function(e) {
-    progressValue.innerHTML = '100 %';
-    setTimeout(() => {
-      progressValue.classList.remove('visible');
-      uploadProgress.classList.remove('visible');
-    }, 1300);
-  };
+  if (progressBar.value === progressBar.max) {
+    progressValue.innerHTML = finalText;
+    onProgressEnd([progressValue, progressBar], progressValue, finalText);
+  }
 }
 
-function onDownloadProgress(xhr) {
-  const downLoadProgress = document.querySelector('.download-progress');
-  const { title } = document;
-
-  xhr.onloadstart = function(e) {
-    downLoadProgress.classList.add('visible');
-    downLoadProgress.value = 0;
-    downLoadProgress.max = e.total;
-  };
-
-  xhr.onprogress = function(e) {
-    const persentage = `${parseInt(((e.loaded / e.total) * 100), 10)}%`;
-    document.title = `${title} ${persentage}`;
-    downLoadProgress.value = e.loaded;
-    downLoadProgress.max = e.total;
-  };
-
-  xhr.onloadend = function(e) {
-    downLoadProgress.classList.remove('visible');
-    document.title = `${title} 100%`;
-    setTimeout(() => {
-      document.title = title;
-    }, 1300);
-  };
+function makeProgressVisible(nodeElements) {
+  nodeElements.forEach(el => el.classList.add('visible'));
 }
 
-function downloadFile(data, fileName) {
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(data);
-  link.download = fileName;
-  link.click();
+function makeProgessInvisible(nodeElements) {
+  setTimeout(() => {
+    nodeElements.forEach(el => el.classList.remove('visible'));
+  }, 1300);
+}
+
+function onUploadProgress(event) {
+  onProgress({ event,
+    progressBar: uploadProgressBar,
+    progressValue: uploadProgressValue,
+    onProgressStart: makeProgressVisible,
+    onProgressEnd: makeProgessInvisible,
+    text: 'PROGRESS -',
+    finalText: 'SUCCESS' });
+}
+
+function onDownloadProgress(event) {
+  onProgress({ event,
+    progressBar: downLoadProgressBar,
+    progressValue: titleValue,
+    onProgressStart: makeProgressVisible,
+    onProgressEnd: makeProgessInvisible,
+    text: 'Load 📂',
+    finalText: 'Load' });
 }
