@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Form</title>
+  <title>Load</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
         crossorigin="anonymous">
@@ -14,30 +14,33 @@
 </head>
 
 <body>
-  <progress id="download-progress"></progress>
+  <progress class = "download-progress"></progress>
 
   <div class="container">
 
     <div class="left">
-      <p class="message UploadMes"></p>  
-      <form id='uploadForm' encType="multipart/form-data">
-            <label for="myfile" class="SubmitOrButton">Сhoose a file</label>
-            <input type="file" id="myfile" name="sampleFile"/>
-            <p class="fileName">No file selected</p>
+      <div class="message"></div>
+      <form id='uploadForm'>
+            <label for="chooseFile" class="submitOrButton">Сhoose a file</label>
+            <input type="file" id="chooseFile" name="sampleFile"/>
+            <div class="nameOfUploadFile">No file selected</div>
 
-            <input type='submit' class="SubmitOrButton" value='Upload!' />
+            <input type='submit' class="submitOrButton" value='Upload!' />
       </form>  
-          
-      <p class="message DownloadMes"></p>   
-      <form id='downloadForm' encType="multipart/form-data">
-        <input id='fileName' type="text" name="sampleFile" />
-        <input type='submit' class="SubmitOrButton" value='Download!' />
+
+      <form id='downloadForm'>
+        <input class = 'nameOfDownloadFile' type = "text" name = "sampleFile"/>
+        <input type='submit' class="submitOrButton" value = 'Download!'/>
       </form>
 
-      <progress id="upload-progress"></progress>
+      <progress class = "upload-progress"></progress>
       <div class="uploadProgressValue"></div>  
-      <button class="SubmitOrButton buttonShow">Show upload files</button>
-      <div class="list"><i class="fas fa-times"></i></div>
+
+      <button class="buttonShow submitOrButton">Show<br>uploaded files</button>
+      <div class="containerForList">
+        <i class="fas fa-times"></i>
+        <div class="listOfFiles"></div>
+      </div>
     </div>
 
     <div class="right">
@@ -46,11 +49,12 @@
 
   </div>
 
-  
-
   <script src="/HttpRequest.js"></script>
   <script src="/progress.js"></script>
-  <script src="/index.js"></script>
+  <script src="/listOfFiles.js"></script>
+  <script src="/message.js"></script>
+  <script src="/utils.js"></script>
+  <script src="/app.js"></script>
 </body>
 
 </html>
