@@ -1,31 +1,26 @@
-/* eslint-disable */
 const buttonShow = document.querySelector('.buttonShow');
+const containerForList = document.querySelector('.containerForList');
 const listOfFiles = document.querySelector('.listOfFiles');
 const buttonClose = document.querySelector('.fa-times');
 
-
-buttonShow.addEventListener('click', function showList() {
-  buttonShow.style.display = 'none';
-  listOfFiles.style.display = 'block';
-
+function updateList() {
+  // eslint-disable-next-line no-undef
   const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
   http.get('/list')
     .then(response => {
-      response.forEach((file, index) => {
-        const p = document.createElement('p');
-        listOfFiles.appendChild(p);
-        p.innerHTML = `${index + 1})  ${file}`;
-      });
+      listOfFiles.innerHTML =
+      response.reduce((accumulator, file, index) => `${accumulator}<p><a>${index + 1})  ${file}</a></p>\n`, '');
     });
+}
+
+buttonShow.addEventListener('click', function showList() {
+  buttonShow.classList.add('invisible');
+  containerForList.classList.add('visible');
+  updateList();
 });
 
 buttonClose.addEventListener('click', function closeList() {
-  buttonShow.style.display = 'block';
-  listOfFiles.style.display = 'none';
-
-  const content = listOfFiles.getElementsByTagName('p');
-
-  for (let i = content.length - 1; i >= 0; i--) {
-    listOfFiles.removeChild(content[i]);
-  }
+  buttonShow.classList.remove('invisible');
+  containerForList.classList.remove('visible');
 });
+

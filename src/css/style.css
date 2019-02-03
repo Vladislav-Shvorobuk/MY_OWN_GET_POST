@@ -189,20 +189,36 @@ progress {
   width: 180px;
   height: 180px;
 }
+.buttonShow.invisible {
+  display: none;
+}
 
-.listOfFiles {
+.containerForList {
   border: 1px solid #4FD666;
   position: relative;
   font: 16px/20px Tahoma;
   color: white;
   display: none;
-  padding: 18px 30px;
+  padding: 22px 30px;
   background: linear-gradient(to top right, #3EC97A, #69EA49 20%, rgba(61, 89, 103, 0.81) 80%, rgba(255, 255, 255, 0)) top right/500% 500%;
   width: 354px;
-  height: 300px;  
+  height: 250px;  
   border-radius: 4px;
   text-align: left;
   overflow-y: auto;
+}
+.containerForList.visible {
+  display: block;
+}
+
+.listOfFiles p a {
+  transition: all 0.28s ease-in-out;
+  cursor: pointer;
+}
+
+.listOfFiles p a:hover{ 
+  text-transform: uppercase;
+  color: #0d6730;
 }
 
 .fa-times {
@@ -218,7 +234,7 @@ progress {
 }
 
 .fa-times:hover {
-  color: #3EC97A;
+  color: rgb(60, 167, 106);
   background-position: bottom left;
 }
 

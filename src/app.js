@@ -5,10 +5,10 @@ const uploadForm = document.getElementById('uploadForm');
 const downloadForm = document.getElementById('downloadForm');
 
 //  UPLOAD FILE
-uploadForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  const [file] = e.target.sampleFile.files;
-
+uploadForm.addEventListener('submit',  event => {
+  event.preventDefault();
+  const [file] = event.target.sampleFile.files;
+  console.log(file);
   if (!file) {
     setMessage('CHOOSE_A_FILE');
     return;
@@ -20,6 +20,7 @@ uploadForm.addEventListener('submit', function (e) {
 
   response.post('/upload', { data: form, onUploadProgress })
     .then(() => {
+      updateList();
       setMessage('SUCCES_DOWNLOAD_FILE');
     })
     .catch(error => {

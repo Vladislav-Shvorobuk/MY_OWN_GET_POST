@@ -1,10 +1,18 @@
-// /* eslint-disable*/
 const chooseFile = document.getElementById('chooseFile');
 const nameOfUploadFile = document.querySelector('.nameOfUploadFile');
 const message = document.querySelector('.message');
 
-chooseFile.addEventListener('change', function setFileName() {
-  nameOfUploadFile.innerHTML = chooseFile.value.replace(/.*\\/, '');
+
+chooseFile.addEventListener('change', function setFileName(event) {
+  nameOfUploadFile.innerHTML = event.target.files[0].name;
+});
+
+// eslint-disable-next-line no-undef
+listOfFiles.addEventListener('click', function chooseFileNameFromList(event) {
+  if (event.target.text) {
+    chooseFile.value = event.target.text.replace(/^(.*?) /, '');
+    // nameOfUploadFile.innerHTML = event.target.text.replace(/^(.*?) /, '');
+  }
 });
 
 function viewImage(response) {
