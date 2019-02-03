@@ -1,73 +1,27 @@
+/* eslint-disable no-undef */
 const chooseFile = document.getElementById('chooseFile');
+const nameOfDownloadFile = document.querySelector('.nameOfDownloadFile');
 const nameOfUploadFile = document.querySelector('.nameOfUploadFile');
-const message = document.querySelector('.message');
 
 
 chooseFile.addEventListener('change', function setFileName(event) {
   nameOfUploadFile.innerHTML = event.target.files[0].name;
 });
 
-// eslint-disable-next-line no-undef
 listOfFiles.addEventListener('click', function chooseFileNameFromList(event) {
   if (event.target.text) {
-    chooseFile.value = event.target.text.replace(/^(.*?) /, '');
-    // nameOfUploadFile.innerHTML = event.target.text.replace(/^(.*?) /, '');
+    const choosen = event.target.text.replace(/^(.*?) /, '').trim();
+
+    if (choosen === nameOfDownloadFile.value) {
+      setMessage('ALREADY_CHOSEN');
+      return;
+    }
+    nameOfDownloadFile.value = choosen;
   }
 });
 
-function viewImage(response) {
-  document.querySelector('.image').src = URL.createObjectURL(response);
-}
-
-function setMessage(type, text) {
-  message.style.display = 'block';
-  message.style.opacity = '1';
-
-  switch (type) {
-  case 'SUCCES_UPLOAD':
-    message.style.background = '#00800094';
-    message.style.color = 'white';
-    message.innerHTML = text || 'File successfully uploaded.';
-    break;
-
-  case 'SUCCES_DOWNLOAD_FILE':
-    message.style.background = '#00800094';
-    message.style.color = 'white';
-    message.innerHTML = text || 'File successfully downloaded.';
-    break;
-
-  case 'SUCCES_VIEW_IMAGE':
-    message.style.background = '#00800094';
-    message.style.color = 'white';
-    message.innerHTML = text || 'Image successfully viewed.';
-    break;
-
-  case 'CHOOSE_A_FILE':
-    message.style.background = '#ffff008f';
-    message.style.color = '#000000b8';
-    message.innerHTML = text || 'Choose a file, please.';
-    break;
-
-  case 'NOT_EXIST':
-    message.style.background = '#ffff008f';
-    message.style.color = '#000000b8';
-    message.innerHTML = text || 'File does not exist or file name is incorrect.';
-    break;
-
-  case 'ERROR':
-    message.style.background = '#f443366e';
-    message.style.color = '#00800094';
-    message.innerHTML = text;
-    break;
-
-  default:
-    break;
-  }
-
-  setTimeout(() => {
-    message.innerHTML = '';
-    message.style.opacity = '0';
-  }, 1300);
+function viewImage(data) {
+  document.querySelector('.image').src = URL.createObjectURL(data);
 }
 
 function downloadFile(data, fileName) {

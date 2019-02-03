@@ -42,6 +42,25 @@ body {
   transition: all 0.48s ease-in-out;
 }
 
+.message.visible {
+  opacity: 1;
+}
+
+.message.success {
+  background: #00800094;
+  color: white;
+}
+
+.message.info {
+  background: #ffff008f;
+  color: #000000b8;
+}
+
+.message.error {
+  background: #f443366e;
+  color: #00800094;
+}
+
 progress {
   transition: all 0.48s ease-in-out;
 }

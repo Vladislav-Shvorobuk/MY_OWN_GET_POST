@@ -1,10 +1,10 @@
+/* eslint-disable no-undef */
 const buttonShow = document.querySelector('.buttonShow');
 const containerForList = document.querySelector('.containerForList');
 const listOfFiles = document.querySelector('.listOfFiles');
 const buttonClose = document.querySelector('.fa-times');
 
 function updateList() {
-  // eslint-disable-next-line no-undef
   const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
   http.get('/list')
     .then(response => {

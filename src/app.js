@@ -41,17 +41,16 @@ downloadForm.addEventListener('submit', event => {
   const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
 
   response.get(`/files/${nameOfDownloadFile}`, { responseType: 'blob', onDownloadProgress })
-    .then(response => {
-      if (IMAGE_MIME_TIPES.includes(response.type)) {
-        viewImage(response);
+    .then(data => {
+      if (IMAGE_MIME_TIPES.includes(data.type)) {
+        viewImage(data);
         setMessage('SUCCES_VIEW_IMAGE');
       } else {
-        downloadFile(response, nameOfDownloadFile);
+        downloadFile(data, nameOfDownloadFile);
         setMessage('SUCCES_DOWNLOAD_FILE');
       }
     })
     .catch(error => {
-      console.log(error);
       setMessage('NOT_EXIST');
     });
 });
