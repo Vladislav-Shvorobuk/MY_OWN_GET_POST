@@ -5,8 +5,7 @@ const listOfFiles = document.querySelector('.listOfFiles');
 const buttonClose = document.querySelector('.fa-times');
 
 function updateList() {
-  const http = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-  http.get('/list')
+  request.get('/list')
     .then(response => {
       listOfFiles.innerHTML =
       response.reduce((accumulator, file, index) => `${accumulator}<p><a>${index + 1})  ${file}</a></p>\n`, '');

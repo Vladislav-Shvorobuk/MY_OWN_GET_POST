@@ -3,6 +3,7 @@ const IMAGE_MIME_TIPES = ['image/gif', 'image/png', 'image/jpeg',
   'image/bmp', 'image/webp', 'image/vnd.microsoft.icon'];
 const uploadForm = document.getElementById('uploadForm');
 const downloadForm = document.getElementById('downloadForm');
+const request = new HttpRequest({ baseUrl: 'http://localhost:8000' });
 
 //  UPLOAD FILE
 uploadForm.addEventListener('submit', event => {
@@ -16,9 +17,8 @@ uploadForm.addEventListener('submit', event => {
 
   const form = new FormData();
   form.append('sampleFile', file);
-  const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
 
-  response.post('/upload', { data: form, onUploadProgress })
+  request.post('/upload', { data: form, onUploadProgress })
     .then(() => {
       updateList();
       setMessage('SUCCES_DOWNLOAD_FILE');
@@ -40,9 +40,7 @@ downloadForm.addEventListener('submit', event => {
     return;
   }
 
-  const response = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-
-  response.get(`/files/${fileName}`, { responseType: 'blob', onDownloadProgress })
+  request.get(`/files/${fileName}`, { responseType: 'blob', onDownloadProgress })
     .then(data => {
       if (IMAGE_MIME_TIPES.includes(data.type)) {
         viewImage(data);
