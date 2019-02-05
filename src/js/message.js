@@ -1,15 +1,15 @@
 const message = document.querySelector('.message');
-const classes = { SUCCES_UPLOAD: 'success',
+const classes = {
+  SUCCES_UPLOAD: 'success',
   SUCCES_DOWNLOAD_FILE: 'success',
   SUCCES_VIEW_IMAGE: 'success',
   CHOOSE_A_FILE: 'info',
   ALREADY_CHOSEN: 'info',
   NOT_EXIST: 'info',
-  ERROR: 'error' };
+  ERROR: 'error'
+};
 
 function setMessage(type, text) {
-  message.classList.add('visible');
-
   switch (type) {
   case 'SUCCES_UPLOAD':
     message.classList.add('success');
@@ -50,8 +50,5 @@ function setMessage(type, text) {
     break;
   }
 
-  setTimeout(() => {
-    message.classList.remove('visible');
-    message.classList.remove(classes[type]);
-  }, 1300);
+  setTimeout(() => message.classList.remove(classes[type]), 1300);
 }

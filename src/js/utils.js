@@ -1,16 +1,16 @@
-/* eslint-disable no-undef */
-const chooseFile = document.getElementById('chooseFile');
+/* global  setMessage*/
 const nameOfDownloadFile = document.querySelector('.nameOfDownloadFile');
 const nameOfUploadFile = document.querySelector('.nameOfUploadFile');
 
-
-chooseFile.addEventListener('change', function setFileName(event) {
+function setFileName(event) {
   nameOfUploadFile.innerHTML = event.target.files[0].name;
-});
+}
 
-listOfFiles.addEventListener('click', function chooseFileNameFromList(event) {
-  if (event.target.text) {
-    const choosen = event.target.text.replace(/^(.*?) /, '').trim();
+function chooseFileNameFromList(event) {
+  const textOfLink = event.target.text;
+
+  if (textOfLink) {
+    const choosen = textOfLink.replace(/^(.*?) /, '').trim();
 
     if (choosen === nameOfDownloadFile.value) {
       setMessage('ALREADY_CHOSEN');
@@ -18,16 +18,4 @@ listOfFiles.addEventListener('click', function chooseFileNameFromList(event) {
     }
     nameOfDownloadFile.value = choosen;
   }
-});
-
-function viewImage(data) {
-  document.querySelector('.image').src = URL.createObjectURL(data);
 }
-
-function downloadFile(data, fileName) {
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(data);
-  link.download = fileName;
-  link.click();
-}
-
