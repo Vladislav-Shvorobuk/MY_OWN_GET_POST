@@ -1,11 +1,12 @@
-/* global  setMessage, request, updateList, onUploadProgress, uploadProgressBar, uploadProgressValue*/
+/* global  showMessage, request, updateList, onUploadProgress, uploadProgressBar, uploadProgressValue*/
+const nameOfUploadFile = document.querySelector('.nameOfUploadFile');
 
 function upload(event) {
   event.preventDefault();
   const [file] = event.target.sampleFile.files;
 
   if (!file) {
-    setMessage('CHOOSE_A_FILE');
+    showMessage('CHOOSE_A_FILE');
     return;
   }
 
@@ -15,11 +16,15 @@ function upload(event) {
   request.post('/upload', { data: form, onUploadProgress })
     .then(() => {
       updateList();
-      setMessage('SUCCES_DOWNLOAD_FILE');
+      showMessage('SUCCES_DOWNLOAD_FILE');
     })
     .catch(error => {
       uploadProgressBar.classList.remove('visible');
       uploadProgressValue.classList.remove('visible');
-      setMessage('ERROR', `${error}`);
+      showMessage('ERROR', `${error}`);
     });
+}
+
+function setFileName(event) {
+  nameOfUploadFile.innerHTML = event.target.files[0].name;
 }
