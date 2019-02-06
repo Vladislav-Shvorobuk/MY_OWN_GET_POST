@@ -20,8 +20,10 @@ function onProgress(progArgs) {
   progressValue.innerHTML = `${text} ${persentage}`;
 
   if (progressBar.value === progressBar.max) {
+    setTimeout(() => {
     progressValue.innerHTML = finalText;
     onProgressEnd([progressValue, progressBar], progressValue, finalText);
+  }, 1300);
   }
 }
 
@@ -30,9 +32,7 @@ function makeProgressVisible(nodeElements) {
 }
 
 function makeProgessInvisible(nodeElements) {
-  setTimeout(() => {
     nodeElements.forEach(el => el.classList.remove('visible'));
-  }, 1300);
 }
 
 function onUploadProgress(event) {

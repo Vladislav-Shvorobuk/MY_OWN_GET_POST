@@ -1,4 +1,4 @@
-/* global  nameOfDownloadFile, setMessage, request, onDownloadProgress, viewImage, downLoadProgressBar*/
+/* global  nameOfDownloadFile, showMessage, request, onDownloadProgress, viewImage, downLoadProgressBar*/
 const IMAGE_MIME_TIPES = ['image/gif', 'image/png', 'image/jpeg',
   'image/bmp', 'image/webp', 'image/vnd.microsoft.icon'];
 const image = document.querySelector('.image');
@@ -19,7 +19,7 @@ function download(event) {
   const fileName = nameOfDownloadFile.value;
 
   if (!fileName) {
-    setMessage('CHOOSE_A_FILE');
+    showMessage('CHOOSE_A_FILE');
     return;
   }
 
@@ -27,21 +27,21 @@ function download(event) {
     .then(data => {
       if (IMAGE_MIME_TIPES.includes(data.type)) {
         viewImage(data);
-        setMessage('SUCCES_VIEW_IMAGE');
+        showMessage('SUCCES_VIEW_IMAGE');
       } else {
         downloadFile(data, fileName);
-        setMessage('SUCCES_DOWNLOAD_FILE');
+        showMessage('SUCCES_DOWNLOAD_FILE');
       }
     })
     .catch(error => {
       downLoadProgressBar.classList.remove('visible');
 
       if ((/[404]/).test(error)) {
-        setMessage('NOT_EXIST');
+        showMessage('NOT_EXIST');
         return;
       }
-      // console.log(error);
-      setMessage('ERROR', `${error}`);
+
+      showMessage('ERROR', `${error}`);
     });
 }
 
